@@ -6,7 +6,7 @@ import { Span } from "next/dist/trace";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
-export default function register() {
+export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

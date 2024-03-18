@@ -3,7 +3,7 @@
 import { signOut } from "next-auth/react";
 import React from "react";
 
-const signout = () => {
+const SignOut = () => {
   return (
     <div>
       <p>Are you sure want to sign out?</p>
@@ -12,4 +12,4 @@ const signout = () => {
   );
 };
 
-export default signout;
+export default SignOut;
