@@ -6,7 +6,7 @@ import React from "react";
 export const GoogleButton = () => {
   return (
     <button
-      className="flex justify-center items-center m-auto gap-4 shadow rounded px-8 py-2 hover:bg-slate-50 transition duration-100 ease-in border border-slate-200 mb-2 w-[300px]"
+      className="flex justify-center items-center m-auto gap-4 shadow rounded px-8 py-2 hover:bg-slate-50 transition duration-100 ease-in border border-slate-200 mb-2 w-[300px] bg-white"
       onClick={() => signIn("google", { callbackUrl: "/" })}
     >
       <svg

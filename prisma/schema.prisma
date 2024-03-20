@@ -45,7 +45,7 @@ model User {
   name           String?
   email          String?   @unique
   emailVerified  DateTime?
-  hashedPassword String?  
+  hashedPassword String?
   image          String?
   accounts       Account[]
   sessions       Session[]
@@ -57,4 +57,27 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Store {
+  id          String @id @default(cuid())
+  name        String
+  address     String
+  description String?
+  phonenumber String?
+  image       String?
+}
+
+model Product {
+  id          String @id @default(cuid())
+  name        String
+  price       Int
+  description String?
+  image       String?
+}
+
+model ProductCategory {
+  id          String @id @default(cuid())
+  name        String
+  descripsion String
 }

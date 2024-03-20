@@ -12,7 +12,7 @@ export const options = {
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
-    maxAge: 60 * 1,
+    maxAge: 60 * 60 * 30,
   },
   providers: [
     GoogleProvider({

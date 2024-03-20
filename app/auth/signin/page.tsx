@@ -5,6 +5,7 @@ import { GoogleButton } from "@/app/(components)/googleButton";
 import { FacebookButton } from "../../(components)/facebookButton";
 import { signIn } from "next-auth/react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -70,13 +71,15 @@ const SignIn = () => {
 
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8 bg-">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+          <Image
+            className="mx-auto h-[100px] w-auto"
+            width={1000}
+            height={1000}
+            src="/img/Pekutokoo.png"
             alt="Your Company"
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Registrasi Akun
+          <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Sign In
           </h2>
         </div>
 
