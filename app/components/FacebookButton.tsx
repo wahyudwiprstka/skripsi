@@ -7,7 +7,7 @@ export const FacebookButton = () => {
   return (
     <button
       className="flex justify-center items-center m-auto gap-4 shadow rounded w-[300px] py-2 hover:bg-slate-50 transition duration-100 ease-in border border-slate-200 bg-white"
-      onClick={() => signIn("facebook")}
+      onClick={() => signIn("facebook", { callbackUrl: "/" })}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -1,8 +1,8 @@
 "use client";
 
 import React, { FormEvent, useState } from "react";
-import { GoogleButton } from "@/app/(components)/googleButton";
-import { FacebookButton } from "../../(components)/facebookButton";
+import { GoogleButton } from "@/app/components/GoogleButton";
+import { FacebookButton } from "@/app/components/FacebookButton";
 import { signIn } from "next-auth/react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";

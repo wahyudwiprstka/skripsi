@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "option.js", "app/api/auth/[...nextauth]/route.js", "app/page.jsx", "app/store/admin/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "option.js", "app/api/auth/[...nextauth]/route.js", "app/page.jsx", "app/store/admin/page.jsx", "app/testUpload/page.jsx", "app/api/upload/route.js", "app/product/add/page.jsx", "app/api/product/route.js", "app/product/page.jsx", "app/components/product/Dropzone.tsx", "app/api/store/route.js", "app/lib/userHasStore.js"],
   "exclude": ["node_modules"]
 }

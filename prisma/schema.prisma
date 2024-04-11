@@ -47,8 +47,15 @@ model User {
   emailVerified  DateTime?
   hashedPassword String?
   image          String?
-  accounts       Account[]
-  sessions       Session[]
+  role           String    @default("user")
+
+  accounts Account[]
+  sessions Session[]
+  Store    Store?
+  Address  Address?
+  Order    Order[]
+  Cart     Cart?
+  Rating   Rating[]
 }
 
 model VerificationToken {
@@ -60,24 +67,133 @@ model VerificationToken {
 }
 
 model Store {
-  id          String @id @default(cuid())
+  id          String    @id @default(cuid())
   name        String
   address     String
   description String?
   phonenumber String?
   image       String?
+  userId      String    @unique
+  user        User      @relation(fields: [userId], references: [id])
+  Product     Product[]
 }
 
 model Product {
-  id          String @id @default(cuid())
+  id          String  @id @default(cuid())
   name        String
   price       Int
   description String?
-  image       String?
+  categoryId  String
+  storeId     String
+  inventoryId String  @unique
+
+  category        ProductCategory   @relation(fields: [categoryId], references: [id])
+  inventory       ProductInventory  @relation(fields: [inventoryId], references: [id])
+  store           Store             @relation(fields: [storeId], references: [id])
+  OrderItems      OrderItems[]
+  CartItems       CartItems[]
+  ProductVariants ProductVariants[]
+  ProductImages   ProductImages[]
+  Rating          Rating[]
+}
+
+model ProductVariants {
+  id        String @id @default(cuid())
+  name      String
+  qty       Int
+  productId String
+
+  product Product  @relation(fields: [productId], references: [id])
+  Rating  Rating[]
 }
 
 model ProductCategory {
-  id          String @id @default(cuid())
+  id          String    @id @default(cuid())
   name        String
-  descripsion String
+  description String?
+  Product     Product[]
+}
+
+model ProductInventory {
+  id       String   @id @default(cuid())
+  quantity Int
+  Product  Product?
+}
+
+model ProductImages {
+  id        String @id @default(cuid())
+  image     String
+  productId String
+
+  product Product @relation(fields: [productId], references: [id])
+}
+
+model Rating {
+  id        String @id @default(cuid())
+  userId    String
+  productId String
+  variantId String
+  rating    Int
+  review    String
+
+  product Product         @relation(fields: [productId], references: [id])
+  variant ProductVariants @relation(fields: [variantId], references: [id])
+  user    User            @relation(fields: [userId], references: [id])
+}
+
+model Address {
+  id        String @id @default(cuid())
+  provinsi  String
+  kabkota   String
+  kecamatan String
+  desa      String
+  detail    String
+  userId    String @unique
+  User      User   @relation(fields: [userId], references: [id])
+}
+
+model Order {
+  id         String       @id @default(cuid())
+  price      Int
+  status     String
+  addressId  String
+  date       DateTime     @default(now())
+  userId     String
+  User       User         @relation(fields: [userId], references: [id])
+  OrderItems OrderItems[]
+}
+
+model OrderItems {
+  id        String  @id @default(cuid())
+  price     Int
+  qty       Int
+  orderId   String
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  Order     Order   @relation(fields: [orderId], references: [id])
+}
+
+model Cart {
+  id        String      @id @default(cuid())
+  userId    String      @unique
+  price     Int
+  User      User        @relation(fields: [userId], references: [id])
+  CartItems CartItems[]
+}
+
+model CartItems {
+  id        String  @id @default(cuid())
+  cartId    String
+  productId String
+  qty       String
+  price     Int
+  Cart      Cart    @relation(fields: [cartId], references: [id])
+  Product   Product @relation(fields: [productId], references: [id])
+}
+
+model Payment {
+  id     String   @id @default(cuid())
+  method String
+  date   DateTime @default(now())
+  amount Int
 }

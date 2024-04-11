@@ -7,7 +7,7 @@ const SignOut = () => {
   return (
     <div>
       <p>Are you sure want to sign out?</p>
-      <button onClick={() => signOut()}>Sign Out</button>
+      <button onClick={() => signOut({ callbackUrl: "/" })}>Sign Out</button>
     </div>
   );
 };

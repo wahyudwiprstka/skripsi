@@ -91,6 +91,18 @@ export const options = {
       }
       return "/api/auth/error";
     },
+    jwt: async ({ token, user }) => {
+      if (user) token.role = user.role;
+      return token;
+    },
+    session: async ({ session, token }) => {
+      if (session?.user) {
+        session.user.id = token.sub;
+        session.user.role = token.role;
+      }
+      return session;
+    },
+
     // async jwt({ token, user, profile }) {
     //   // token.name = user;
     //   console.log("user: " + user);
