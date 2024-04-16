@@ -4,7 +4,6 @@ import Dropzone from "@/app/components/product/Dropzone";
 import Variant from "@/app/components/product/Variant";
 import { storage } from "@/app/firebase";
 import { userHasStore } from "@/libs/userHasStore";
-import { Skeleton } from "@nextui-org/react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useSession } from "next-auth/react";
 // import { UploadDropzone } from "@/utils/uploadthing";
@@ -102,7 +101,7 @@ const AddProduct = () => {
         if(!data){
           router.push('http://localhost:3000/unauthorized');
         }
-        // If user has a store, stop the skeleton
+        // If user has a store, stop the div
         if(data){
           setIsLoaded(true);
         }
@@ -179,7 +178,8 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="min-h-[100vh] flex flex-col items-center mb-10">
+    <div className={`${!isLoaded ? 'justify-center' : ''} min-h-[100vh] flex flex-col items-center mb-10`}>
+      {!isLoaded ? <span className="loading loading-spinner loading-lg"></span> :
       <div className="w-[50rem]">
         {/* Error */}
         <div className="py-10">
@@ -231,18 +231,16 @@ const AddProduct = () => {
 
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8 bg-">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <Skeleton isLoaded={isLoaded} className="rounded-lg">
             <Image
               src="/img/pekutokoo.png"
               width={1000}
               height={1000}
               alt="Logo Pekutatan"
-              className="h-[100px] w-auto mx-auto"
+              className={`h-[100px] w-auto mx-auto`}
             />
             <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
               Tambah Produk
             </h2>
-            </Skeleton>
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -252,7 +250,7 @@ const AddProduct = () => {
               method="POST"
               onSubmit={handleSubmit}
             >
-              <Skeleton isLoaded={isLoaded} className="rounded-lg">
+              <div isLoaded={isLoaded} className="rounded-lg">
               <div>
                 <label
                   htmlFor="name"
@@ -271,9 +269,9 @@ const AddProduct = () => {
                   />
                 </div>
               </div>
-              </Skeleton>
+              </div>
 
-              <Skeleton isLoaded={isLoaded} className="rounded-lg">
+              <div isLoaded={isLoaded} className="rounded-lg">
               <div>
                 <div className="flex items-center justify-between">
                   <label
@@ -294,9 +292,9 @@ const AddProduct = () => {
                   />
                 </div>
               </div>
-              </Skeleton>
+              </div>
 
-              <Skeleton isLoaded={isLoaded} className="rounded-lg">
+              <div isLoaded={isLoaded} className="rounded-lg">
               <div>
                 <div className="flex items-center justify-between">
                   <label
@@ -317,7 +315,7 @@ const AddProduct = () => {
                   />
                 </div>
               </div>
-              </Skeleton>
+              </div>
 
               {/* <div>
                 <div className="flex items-center justify-between">
@@ -379,11 +377,11 @@ const AddProduct = () => {
                 )}
               </div> */}
 
-              <Skeleton isLoaded={isLoaded} className="rounded-lg">
+              <div isLoaded={isLoaded} className="rounded-lg">
                 <Variant variants={variants} updateVariants={updateVariants}/>
-              </Skeleton>
+              </div>
 
-              <Skeleton isLoaded={isLoaded} className="rounded-lg">
+              <div isLoaded={isLoaded} className="rounded-lg">
               <div>
                 <div className="flex items-center justify-between">
                   <label
@@ -412,9 +410,9 @@ const AddProduct = () => {
                   </select>
                 </div>
               </div>
-              </Skeleton>
+              </div>
 
-              <Skeleton isLoaded={isLoaded} className="rounded-lg">
+              <div isLoaded={isLoaded} className="rounded-lg">
               <div>
                 <div className="flex items-center justify-between">
                   <label
@@ -434,9 +432,9 @@ const AddProduct = () => {
                   />
                 </div>
               </div>
-              </Skeleton>
+              </div>
 
-              <Skeleton isLoaded={isLoaded} className="rounded-lg">
+              <div isLoaded={isLoaded} className="rounded-lg">
                 {imageUrls.length === 0 && (
                   <Dropzone
                     updateImages={updateImages}
@@ -451,9 +449,9 @@ const AddProduct = () => {
                 {imageUrls.length > 0 && (
                   <input type="text" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value={`${imageUrls.length} file(s) uploaded successfully`} disabled/>
                 )}
-              </Skeleton>
+              </div>
               
-              <Skeleton isLoaded={isLoaded} className="rounded-lg">
+              <div isLoaded={isLoaded} className="rounded-lg">
               <div>
                 <button
                   type="submit"
@@ -462,11 +460,12 @@ const AddProduct = () => {
                   Submit
                 </button>
               </div>
-              </Skeleton>
+              </div>
             </form>
           </div>
         </div>
       </div>
+      }
     </div>
   );
 };
