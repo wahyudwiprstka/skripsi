@@ -45,31 +45,31 @@ const SignIn = () => {
   };
 
   return (
-    <div className="my-16">
-      {(loginerr || error) && (
-        <div
-          role="alert"
-          className="alert alert-error bg-red-500 text-white w-[20vw] mx-auto mb-4 shadow "
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="stroke-current shrink-0 h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
+    <div className="bg-slate-100">
+    <div className="h-[100vh] flex items-center w-[700px] m-auto">
+      <div className="flex flex-1 flex-col justify-center px-6 lg:px-8 border border-slate-200 shadow-lg py-10 rounded-lg bg-white">
+        {(loginerr || error) && (
+          <div
+            role="alert"
+            className="alert alert-error bg-red-500 text-white w-[20vw] mx-auto mb-4 shadow "
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          {loginerr ? <span>{loginerr}</span> : <span>{error}</span>}
-          {/* <span>{error}</span> */}
-        </div>
-      )}
-
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8 bg-">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="stroke-current shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            {loginerr ? <span>{loginerr}</span> : <span>{error}</span>}
+            {/* <span>{error}</span> */}
+          </div>
+        )}  
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
             className="mx-auto h-[100px] w-auto"
@@ -163,6 +163,7 @@ const SignIn = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

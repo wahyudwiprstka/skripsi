@@ -4,8 +4,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import bcrypt from "bcrypt";
-import { redirect } from "next/navigation";
-
 const prisma = new PrismaClient();
 
 export const options = {
@@ -102,17 +100,5 @@ export const options = {
       }
       return session;
     },
-
-    // async jwt({ token, user, profile }) {
-    //   // token.name = user;
-    //   console.log("user: " + user);
-    //   console.log(await profile);
-    //   console.log("jwt: " + JSON.stringify(token));
-    //   return token;
-    // },
-    // async session({ session }) {
-    //   console.log("session: " + JSON.stringify(session));
-    //   return session;
-    // },
   },
 };

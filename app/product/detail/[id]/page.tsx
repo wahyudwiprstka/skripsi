@@ -16,7 +16,7 @@ const ProductDetail = () => {
   <div className="mt-2 content w-full flex flex-col">
     <div className="justify-between flex flex-wrap h-[200vh]">
       <div className="sticky self-start top-[5.5rem]">
-        <ProductImages></ProductImages>
+        {/* <ProductImages></ProductImages> */}
       </div>
       <div className="w-[40vw]">
         <h1 className="text-2xl font-semibold text-left">Nama Barang</h1>

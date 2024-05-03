@@ -1,7 +1,9 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import React, { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { FormEvent, useEffect, useState } from "react";
 
 const AddStore = () => {
   const [name, setName] = useState("");
@@ -10,9 +12,23 @@ const AddStore = () => {
   const [phonenumber, setPhonenumber] = useState("");
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
   const [success, setSuccess] = useState("");
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const {data: session, status} = useSession();
+
+  const router = useRouter();
+
+  // Check if user already have a store
+  useEffect(() => {
+    if(status == 'unauthenticated'){
+      setIsLoaded(false);
+    }else if(status == 'authenticated'){
+      setIsLoaded(true);
+    }
+  }, [session, status])
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!name || !address || !description || !phonenumber || !image) {
@@ -35,13 +51,15 @@ const AddStore = () => {
     });
 
     if (res.ok) {
-      setSuccess("Berhasil membuat store");
+      router.push('/store/add/success');
     } else {
       setError("Gagal membuat store");
     }
   };
 
   return (
+    <div className={`${!isLoaded ? 'justify-center' : ''} min-h-[100vh] flex flex-col items-center mb-10`}>
+      {!isLoaded ? <span className="loading loading-spinner loading-lg"></span> :
     <div className="min-h-[100vh] flex flex-col items-center">
       <div className="w-[50rem]">
         {/* {(loginerr || error) && (
@@ -250,6 +268,8 @@ const AddStore = () => {
           </div>
         </div>
       </div>
+    </div>
+    }
     </div>
   );
 };
