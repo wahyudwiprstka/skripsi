@@ -1,5 +1,6 @@
 "use client";
 
+import Dropzone from "@/app/components/store/Dropzone";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -10,14 +11,32 @@ const AddStore = () => {
   const [address, setAddress] = useState("");
   const [description, setDescription] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
   const [error, setError] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const [success, setSuccess] = useState("");
+  const [dragActive, setDragActive] = useState(false);
 
   const {data: session, status} = useSession();
 
   const router = useRouter();
+
+  const updateImage = (value) => {
+    setImage(value);
+  };
+
+  const updateDragActive = (value) => {
+    setDragActive(value);
+  }
+
+  const updateImageUrl = (value) => {
+    setImageUrl(value);    
+  }
+
+  const updateError = (value) => {
+    setError(value);
+  }
 
   // Check if user already have a store
   useEffect(() => {
@@ -213,7 +232,7 @@ const AddStore = () => {
                 </div>
               </div>
 
-              <div>
+              {/* <div>
                 <div className="flex items-center justify-between">
                   <label
                     htmlFor="image"
@@ -232,7 +251,9 @@ const AddStore = () => {
                     onChange={(e) => setImage(e.target.value)}
                   />
                 </div>
-              </div>
+              </div> */}
+
+              <Dropzone updateDragActive={updateDragActive} updateError={updateError} updateImage={updateImage} updateImageUrl={updateImageUrl} image={image} dragActive={dragActive} imageUrl={imageUrl}/>
 
               <div>
                 <button
