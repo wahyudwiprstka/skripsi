@@ -68,6 +68,7 @@ model VerificationToken {
 
 model Store {
   id          String    @id @default(cuid())
+  slug        String    @unique
   name        String
   address     String
   description String?
@@ -80,6 +81,7 @@ model Store {
 
 model Product {
   id          String  @id @default(cuid())
+  slug        String  @unique
   name        String
   price       Int
   description String?

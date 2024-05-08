@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { v4 } from "uuid";
 
 const prisma = new PrismaClient();
 
@@ -21,9 +22,12 @@ export async function POST(req) {
     const { variants, images, name, price, description, category, quantity } =
       await req.json();
 
+    const slug = name + "_" + v4();
+
     const res = await prisma.product.create({
       data: {
         name,
+        slug,
         price,
         description,
         category: {
