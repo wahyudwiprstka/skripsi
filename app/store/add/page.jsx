@@ -66,7 +66,7 @@ const AddStore = () => {
         address,
         description,
         phonenumber,
-        image,
+        image: imageUrl,
       }),
     });
 
@@ -74,6 +74,9 @@ const AddStore = () => {
       router.push('/store/add/success');
     } else {
       setError("Gagal membuat store");
+      res.json().then((response) => {
+        console.log(response.error);
+      })
     }
   };
 
@@ -253,7 +256,11 @@ const AddStore = () => {
                 </div>
               </div> */}
 
-              <Dropzone updateDragActive={updateDragActive} updateError={updateError} updateImage={updateImage} updateImageUrl={updateImageUrl} image={image} dragActive={dragActive} imageUrl={imageUrl}/>
+              {imageUrl == null ? (
+                <Dropzone updateDragActive={updateDragActive} updateError={updateError} updateImage={updateImage} updateImageUrl={updateImageUrl} image={image} dragActive={dragActive} imageUrl={imageUrl}/>
+              ) : (
+                <input type="text" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value={`Image uploaded successfully`} disabled/>
+              )}
 
               <div>
                 <button

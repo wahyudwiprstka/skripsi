@@ -1,6 +1,7 @@
 import { options } from "@/option";
 import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth";
+import { v4 } from "uuid";
 
 const prisma = new PrismaClient();
 
@@ -8,6 +9,8 @@ export async function POST(req) {
   try {
     const session = await getServerSession(options);
     const data = await req.json();
+    const slug = data.name + "_" + v4();
+    const userId = session?.user.id;
     const res = await prisma.store.create({
       data: {
         name: data.name,
@@ -15,15 +18,16 @@ export async function POST(req) {
         description: data.description,
         phonenumber: data.phonenumber,
         image: data.image,
-        userId: session?.user?.id,
+        userId,
+        slug,
       },
     });
     return Response.json(
-      { message: "Store created successfully" },
+      { res },
       { status: 200 }
     );
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    return Response.json({ error: error.message, userId }, { status: 500 });
   }
 }
 
