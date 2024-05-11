@@ -40,12 +40,28 @@ const AddStore = () => {
 
   // Check if user already have a store
   useEffect(() => {
-    if(status == 'unauthenticated'){
-      setIsLoaded(false);
-      router.push('/unauthorized');
-    }else if(status == 'authenticated'){
-      setIsLoaded(true);
+    const getUserStore = async () => {
+      // if not logged in, redirect to unauthorized page
+      if(status == 'unauthenticated'){
+        setIsLoaded(false);
+        router.push('/unauthorized');
+      // if logged in:
+      }else if(status == 'authenticated'){
+        // get store by user
+        const res = await fetch(`http://localhost:3000/api/store/u/${session.user.id}`);
+        const data = await res.json();
+        // If user doesn't have a store, load the page
+        if(!data){
+          setIsLoaded(true);
+        }
+        // If user has a store, redirect to has-store page
+        if(data){
+          router.push('/store/add/has-store');
+        }
+        console.log(data);
+      }
     }
+    getUserStore();
   }, [session, status])
 
   const handleSubmit = async (e) => {

@@ -39,6 +39,7 @@ const AddProduct = () => {
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
+  const [store, setStore] = useState(null);
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState("");
@@ -104,6 +105,7 @@ const AddProduct = () => {
         // If user has a store, stop the div
         if(data){
           setIsLoaded(true);
+          setStore(data);
         }
         console.log(data);
       }
@@ -157,6 +159,7 @@ const AddProduct = () => {
           quantity: parseQuantity,
           variants: [...variants],
           images: [...imageUrls],
+          store: store.id,
         }),
       });
 

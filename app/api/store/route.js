@@ -9,7 +9,8 @@ export async function POST(req) {
   try {
     const session = await getServerSession(options);
     const data = await req.json();
-    const slug = data.name + "_" + v4();
+    const name = data.name;
+    const slug = name.split(' ').join('_') + "_" + v4();
     const userId = session?.user.id;
     const res = await prisma.store.create({
       data: {

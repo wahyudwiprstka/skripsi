@@ -19,10 +19,10 @@ export async function GET() {
 
 export async function POST(req) {
   try {
-    const { variants, images, name, price, description, category, quantity } =
+    const { variants, images, name, price, description, category, quantity, store } =
       await req.json();
 
-    const slug = name + "_" + v4();
+    const slug = name.split(' ').join('_') + "_" + v4();
 
     const res = await prisma.product.create({
       data: {
@@ -33,6 +33,11 @@ export async function POST(req) {
         category: {
           connect: {
             id: category,
+          },
+        },
+        store: {
+          connect: {
+            id: store,
           },
         },
         inventory: {
